@@ -1,9 +1,13 @@
 package br.pucpr.authserver.users
 
+import br.pucpr.authserver.roles.Role
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.JoinTable
+import jakarta.persistence.ManyToMany
 import jakarta.persistence.Table
 
 @Entity
@@ -16,5 +20,13 @@ class User (
     var email: String,
 
     var password: String = "",
-    var name: String = ""
+    var name: String = "",
+
+    @ManyToMany
+    @JoinTable(
+        name = "UserRoles",
+        joinColumns = [JoinColumn(name="idUser")],
+        inverseJoinColumns = [JoinColumn(name="idRole")]
+    )
+    var roles: MutableSet<Role> = mutableSetOf()
 )
