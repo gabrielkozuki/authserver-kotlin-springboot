@@ -10,6 +10,14 @@ spring:
   h2:
     console:
       enabled: true
+  web:
+    error:
+      whitelabel:
+        enabled: false
+      include-message: always
+      include-binding-errors: always
+      include-stacktrace: always
+      include-exception: true
 
 server:
   servlet:

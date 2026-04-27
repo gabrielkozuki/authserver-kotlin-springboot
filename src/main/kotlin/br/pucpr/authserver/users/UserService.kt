@@ -26,8 +26,13 @@ class UserService(
         return repository.save(user)
     }
 
-    fun delete(id: Long): Boolean {
+    fun delete(id: Long): Boolean? {
         val user = repository.findByIdOrNull(id) ?: return false
+
+        if (user.isAdmin() && repository.findByRole("ADMIN").size == 1) {
+            return null
+        }
+
         repository.delete(user)
         return true
     }
