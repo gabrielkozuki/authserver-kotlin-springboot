@@ -20,18 +20,36 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-validation")
-	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+	// Kotlin
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.2")
+	// JSON (Serialização)
 	implementation("tools.jackson.module:jackson-module-kotlin")
+
+	// Web e validação
+	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+	// Persistência de dados
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-h2console")
-	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
-	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
-	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
 	runtimeOnly("com.h2database:h2")
+
+	// Documentação (OpenAPI/Swagger)
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.2")
+
+	// JWT
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	val jjwt = "0.13.0"
+	implementation("io.jsonwebtoken:jjwt-api:${jjwt}")
+	implementation("io.jsonwebtoken:jjwt-jackson:${jjwt}")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:${jjwt}")
+
+	// Testes
+	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-security-test")
+	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

@@ -10,8 +10,5 @@ data class CreateRoleRequest (
     @NotBlank
     val description: String?,
 ) {
-    fun toRole() = Role(
-        name = name ?: "",
-        description = description ?: ""
-    )
+    fun toRole() = Role(name = name!!, description = description!!)
 }

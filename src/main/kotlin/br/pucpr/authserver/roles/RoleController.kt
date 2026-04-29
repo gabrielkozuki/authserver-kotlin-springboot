@@ -1,5 +1,6 @@
 package br.pucpr.authserver.roles
 
+import br.pucpr.authserver.roles.requests.CreateRoleRequest
 import br.pucpr.authserver.roles.responses.RoleResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import jakarta.validation.Valid
@@ -20,8 +21,8 @@ class RoleController(val service: RoleService) {
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    fun insert(@RequestBody @Valid role: Role) =
-        service.insert(role)
+    fun insert(@RequestBody @Valid role: CreateRoleRequest) =
+        service.insert(role.toRole())
             ?.let { RoleResponse(it) }
             ?.let { ResponseEntity.status(HttpStatus.CREATED).body(it) }
             ?: ResponseEntity.badRequest().build()
