@@ -4,6 +4,9 @@ import br.pucpr.authserver.projects.Project
 import br.pucpr.authserver.projects.ProjectRepository
 import br.pucpr.authserver.roles.Role
 import br.pucpr.authserver.roles.RoleRepository
+import br.pucpr.authserver.tasks.Task
+import br.pucpr.authserver.tasks.TaskRepository
+import br.pucpr.authserver.tasks.TaskStatus
 import br.pucpr.authserver.users.User
 import br.pucpr.authserver.users.UserRepository
 import org.springframework.context.ApplicationListener
@@ -15,6 +18,7 @@ class Bootstrapper(
     val userRepository: UserRepository,
     val roleRepository: RoleRepository,
     val projectRepository: ProjectRepository,
+    val taskRepository: TaskRepository,
 ) : ApplicationListener<ContextRefreshedEvent> {
     override fun onApplicationEvent(event: ContextRefreshedEvent) {
         val adminRole = roleRepository.findByName("ADMIN")
@@ -41,14 +45,23 @@ class Bootstrapper(
                 .let { userRepository.save(it) }
 
         if (projectRepository.count() == 0L) {
-            projectRepository.save(
+            val backend = projectRepository.save(
                 Project(name = "Backend", description = "API REST com Kotlin e Spring")
                     .also { it.members.addAll(listOf(admin, gabriel)) }
             )
-            projectRepository.save(
+            val frontend = projectRepository.save(
                 Project(name = "Frontend", description = "Interface web do sistema")
                     .also { it.members.addAll(listOf(gabriel, juliao)) }
             )
+            taskRepository.saveAll(listOf(
+                Task(title = "Configurar banco de dados", status = TaskStatus.DONE, project = backend),
+                Task(title = "Implementar autenticação JWT", status = TaskStatus.DONE, project = backend),
+                Task(title = "Criar módulo de projetos", status = TaskStatus.IN_PROGRESS, project = backend),
+                Task(title = "Criar módulo de tasks", project = backend),
+                Task(title = "Criar layout inicial", status = TaskStatus.DONE, project = frontend),
+                Task(title = "Implementar tela de login", status = TaskStatus.IN_PROGRESS, project = frontend),
+                Task(title = "Integrar com a API", project = frontend),
+            ))
         }
     }
 }

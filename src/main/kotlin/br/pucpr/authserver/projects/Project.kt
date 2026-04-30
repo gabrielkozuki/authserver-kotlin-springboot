@@ -1,13 +1,8 @@
 package br.pucpr.authserver.projects
 
 import br.pucpr.authserver.users.User
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.JoinTable
-import jakarta.persistence.ManyToMany
+import br.pucpr.authserver.tasks.Task
+import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity
@@ -28,5 +23,8 @@ class Project(
         joinColumns = [JoinColumn(name = "idProject")],
         inverseJoinColumns = [JoinColumn(name = "idUser")]
     )
-    var members: MutableSet<User> = mutableSetOf()
+    var members: MutableSet<User> = mutableSetOf(),
+
+    @OneToMany(mappedBy = "project", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var tasks: MutableList<Task> = mutableListOf()
 )
