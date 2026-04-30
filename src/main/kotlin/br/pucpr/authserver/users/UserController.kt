@@ -1,8 +1,9 @@
 package br.pucpr.authserver.users
 
 import br.pucpr.authserver.exceptions.ForbiddenException
+import br.pucpr.authserver.lib.SortDir
 import br.pucpr.authserver.roles.requests.LoginRequest
-import br.pucpr.authserver.roles.requests.UpdateUserRequest
+import br.pucpr.authserver.users.requests.UpdateUserRequest
 import br.pucpr.authserver.security.UserToken
 import br.pucpr.authserver.users.requests.CreateUserRequest
 import br.pucpr.authserver.users.responses.UserResponse

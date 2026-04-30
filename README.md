@@ -1,6 +1,6 @@
 # AuthServer - Kotlin com Spring
 
-Projeto desenvolvido na disciplina de Desenvolvimento de Serviços Back-End. O repositório parte de um servidor de autenticação construído ao longo das aulas e é estendido com novos módulos para a entrega final.
+Projeto desenvolvido na disciplina de Desenvolvimento de Backend (PUC PR). O repositório parte de um servidor de autenticação construído ao longo das aulas e é estendido com novos módulos para a entrega final.
 
 ---
 
@@ -129,10 +129,11 @@ Credenciais do administrador padrão criado pelo bootstrapper:
 
 ```
 br.pucpr.authserver/
+├── exceptions/        # Classes de exceções
+├── lib/               # Utilitários compartilhados entre módulos (ex.: SortDir)
 ├── security/          # JWT, filtro e configuração do Spring Security
 ├── users/             # Entidade User, CRUD e autenticação de usuários
 ├── roles/             # Entidade Role, CRUD e gerenciamento de roles
 ├── projects/          # (novo) Entidade Project e seus endpoints
-├── tasks/             # (novo) Entidade Task e seus endpoints
-└── exceptions/        # Classes de exceções
+└── tasks/             # (novo) Entidade Task e seus endpoints
 ```

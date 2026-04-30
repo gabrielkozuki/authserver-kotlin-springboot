@@ -1,4 +1,4 @@
-package br.pucpr.authserver.roles.requests
+package br.pucpr.authserver.users.requests
 
 import jakarta.validation.constraints.NotBlank
 

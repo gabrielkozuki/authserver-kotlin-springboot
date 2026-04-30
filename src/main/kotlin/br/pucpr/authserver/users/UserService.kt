@@ -3,6 +3,7 @@ package br.pucpr.authserver.users
 import br.pucpr.authserver.exceptions.BadRequestException
 import br.pucpr.authserver.exceptions.NotFoundException
 import br.pucpr.authserver.exceptions.UnauthorizedException
+import br.pucpr.authserver.lib.SortDir
 import br.pucpr.authserver.roles.RoleRepository
 import br.pucpr.authserver.security.Jwt
 import br.pucpr.authserver.users.responses.LoginResponse

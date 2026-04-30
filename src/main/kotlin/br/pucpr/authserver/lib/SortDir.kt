@@ -1,4 +1,4 @@
-package br.pucpr.authserver.users
+package br.pucpr.authserver.lib
 
 import br.pucpr.authserver.exceptions.BadRequestException
 
