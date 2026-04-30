@@ -50,7 +50,7 @@ Projeto desenvolvido na disciplina de Desenvolvimento de Backend (PUC PR). O rep
 | `POST` | `/api/roles` | Pública | Cria role |
 ---
 
-## O que será feito para a entrega
+## O que foi feito para a entrega
 
 A ideia é funcionar como um Task Manager em grupo, onde um usuário pode participar de múltiplos projetos e criar tarefas pertencentes a um projeto. Cada task tem uma descrição e um status (`BACKLOG`, `IN_PROGRESS`, `DONE`).
 
@@ -85,6 +85,7 @@ A ideia é funcionar como um Task Manager em grupo, onde um usuário pode partic
 | `GET` | `/api/projects/{projectId}/tasks/{id}` | Pública | Busca task por ID |
 | `POST` | `/api/projects/{projectId}/tasks` | ADMIN ou membro | Cria task |
 | `PUT` | `/api/projects/{projectId}/tasks/{id}` | ADMIN ou membro | Atualiza task |
+| `PATCH` | `/api/projects/{projectId}/tasks/{id}/status` | ADMIN ou membro | Atualiza apenas o status da task |
 | `DELETE` | `/api/projects/{projectId}/tasks/{id}` | ADMIN ou membro | Remove task |
 
 #### Filtragem e ordenação (query params)
@@ -98,7 +99,7 @@ Os endpoints `GET` de listagem aceitam os parâmetros:
 #### Logs e exceções
 
 - Logging de todas as operações relevantes seguindo o padrão já adotado no projeto;
-- Reuso das exceções existentes e criação de novas quando necessário.
+- As classes Exception existentes foram reutilizadas.
 
 ---
 
