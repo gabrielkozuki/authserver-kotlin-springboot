@@ -17,17 +17,17 @@ import java.time.ZonedDateTime
 import java.util.Date
 
 @Component
-class Jwt {
+class Jwt(private val properties: JwtProperties) {
     fun createToken(user: User) =
         UserToken(user).let {
             Jwts.builder().json(JacksonSerializer())
-                .signWith(Keys.hmacShaKeyFor(SECRET.toByteArray()))
+                .signWith(Keys.hmacShaKeyFor(properties.secret.toByteArray()))
                 .issuedAt(utcNow().toDate())
                 .expiration(utcNow().plusHours(
-                    if (it.isAdmin) ADMIN_EXPIRE_HOURS else EXPIRE_HOURS
+                    if (it.isAdmin) properties.adminExpireHours else properties.expireHours
                 ).toDate()
             )
-            .issuer(ISSUER)
+            .issuer(properties.issuer)
             .subject(it.id.toString())
             .claim(USER_FIELD, it)
             .compact()
@@ -44,11 +44,11 @@ class Jwt {
             val token = header.substring(7).trim()
             val claims = Jwts.parser().json(JacksonDeserializer(
                 mapOf(USER_FIELD to UserToken::class.java))
-            ).verifyWith(Keys.hmacShaKeyFor(SECRET.toByteArray()))
+            ).verifyWith(Keys.hmacShaKeyFor(properties.secret.toByteArray()))
                 .build()
                 .parseSignedClaims(token).payload
 
-            if (claims.issuer != ISSUER) {
+            if (claims.issuer != properties.issuer) {
                 log.trace("Invalid issuer ${claims.issuer}")
                 return null
             }
@@ -64,12 +64,7 @@ class Jwt {
     }
 
     companion object {
-        val SECRET = "23b2cd7e6b1d0200e7d4f9449eac49495d5db2c7"
-        val ADMIN_EXPIRE_HOURS = 1L
-        val EXPIRE_HOURS = 48L
-        val ISSUER = "AuthServer"
         val USER_FIELD = "user"
-        // TODO: gerar arquivos de configurações de ambientes diferentes, e sem ser hard-coded
 
         val log = LoggerFactory.getLogger(Jwt::class.java)
 
