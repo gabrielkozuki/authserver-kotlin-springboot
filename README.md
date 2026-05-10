@@ -6,7 +6,8 @@ Projeto desenvolvido na disciplina de Desenvolvimento de Backend (PUC PR). O rep
 
 ## Vídeo da apresentação
 
-[link]
+Nome: Gabriel Shiguehiro Kozuki
+Link para o vídeo: https://youtu.be/HAY3nzvSr7k
 
 ---
 
