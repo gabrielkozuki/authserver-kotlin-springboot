@@ -68,3 +68,17 @@ allOpen {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
+	// carrega o arquivo .env ao rodar a aplicação com bootRun
+	val envFile = file(".env")
+
+	if (envFile.exists()) {
+		envFile.readLines()
+			.filter { it.isNotBlank() && !it.startsWith("#") } // filtra vazio/comentado
+			.forEach { line ->
+				val (key, value) = line.split("=", limit = 2) // separa o nome da prop do conteúdo
+				environment(key.trim(), value.trim().removeSurrounding("\""))
+			}
+	}
+}

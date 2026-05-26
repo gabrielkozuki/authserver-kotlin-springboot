@@ -106,8 +106,22 @@ Os endpoints `GET` de listagem aceitam os parâmetros:
 
 ## Executando o projeto
 
-- Abra o projeto no IntelliJ e execute a classe `AuthserverApplication` pelo botão de run,
-- Ou execute via terminal:
+### 1. Configurar variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+
+```env
+JWT_SECRET="sua-chave-secreta"
+JWT_ISSUER="AuthServer"
+JWT_EXPIRE_HOURS=48
+JWT_ADMIN_EXPIRE_HOURS=1
+```
+
+> O arquivo `.env` está no `.gitignore` e não deve ser commitado.
+
+### 2. Rodar a aplicação
+
+**Via terminal** — o `bootRun` lê o `.env` automaticamente:
 
 ```bash
 # Windows
@@ -116,6 +130,11 @@ gradlew.bat bootRun
 # Linux/macOS
 ./gradlew bootRun
 ```
+
+**Via IntelliJ** — é necessário apontar o `.env` manualmente nas configurações de execução:
+`Run > Edit Configurations > Modify options > Environment variables` e selecionar o arquivo `.env`.
+
+### 3. Acessar
 
 - Swagger UI: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 - H2 Console: [http://localhost:8080/api/h2-console](http://localhost:8080/api/h2-console)
