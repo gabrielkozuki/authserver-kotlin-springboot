@@ -8,6 +8,7 @@ build/
 logs/
 .claude/
 .claude/worktrees/
+.fs/
 
 ### STS ###
 .apt_generated

@@ -1,14 +1,16 @@
 package br.pucpr.authserver.users
 
 import br.pucpr.authserver.exceptions.UnsupportedMediaTypeException
+import br.pucpr.authserver.files.IFileStorage
 import br.pucpr.authserver.files.S3Storage
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 
 @Service
 class AvatarService(
-    val storage: S3Storage
+    @Qualifier("fileStorage") private val storage: IFileStorage
 ) {
     fun save(user: User, avatar: MultipartFile): String {
         try {

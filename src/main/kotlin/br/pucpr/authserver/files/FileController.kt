@@ -1,6 +1,7 @@
 package br.pucpr.authserver.files
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.core.io.Resource
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/files")
 class FileController(
-    private val storage: S3Storage
+    @Qualifier("fileStorage") private val storage: IFileStorage
 ) {
     @SecurityRequirement(name = "jwt-auth")
     @PreAuthorize("permitAll()")
