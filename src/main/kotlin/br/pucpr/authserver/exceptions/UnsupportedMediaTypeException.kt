@@ -1,0 +1,15 @@
+package br.pucpr.authserver.exceptions
+
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.ResponseStatus
+
+@ResponseStatus(code = HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+class UnsupportedMediaTypeException(
+    message: String = "Unsupported media type",
+    cause: Throwable? = null,
+): IllegalArgumentException(message, cause) {
+    constructor(vararg types: String, cause: Throwable? = null): this(
+        "Unsupported media type. Supported types: ${types.toList()}",
+        cause
+    )
+}

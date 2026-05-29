@@ -29,7 +29,8 @@ class User (
         joinColumns = [JoinColumn(name="idUser")],
         inverseJoinColumns = [JoinColumn(name="idRole")]
     )
-    var roles: MutableSet<Role> = mutableSetOf()
+    var roles: MutableSet<Role> = mutableSetOf(),
+    var avatar: String = AvatarService.DEFAULT_AVATAR
 ) {
     @Transient
     fun isAdmin() = roles.any { r -> r.name == "ADMIN"}

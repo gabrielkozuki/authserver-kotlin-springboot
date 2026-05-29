@@ -13,11 +13,13 @@ import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
 
 @Service
 class UserService(
     val repository: UserRepository,
     val roleRepository: RoleRepository,
+    val avatarService: AvatarService,
     val jwt: Jwt,
 ) {
     fun findAll(sortDir: SortDir) = when(sortDir) {
@@ -84,6 +86,14 @@ class UserService(
             token = jwt.createToken(user),
             user = UserResponse(user)
         )
+    }
+
+    fun saveAvatar(id: Long, avatar: MultipartFile): String {
+        val user = findById(id)
+        user.avatar = avatarService.save(user, avatar)
+        repository.save(user)
+
+        return avatarService.urlFor(user.avatar)
     }
 
     companion object {
