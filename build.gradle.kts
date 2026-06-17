@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "br.pucpr"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.2-SNAPSHOT"
 
 java {
 	toolchain {
@@ -44,6 +44,9 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-jackson:${jjwt}")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:${jjwt}")
 
+	// MySQL
+	runtimeOnly("com.mysql:mysql-connector-j")
+
 	// Testes
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
@@ -51,6 +54,12 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-security-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// AWS SDK
+	val aws = "1.12.797"
+	implementation("com.amazonaws:aws-java-sdk-bom:$aws")
+	implementation("com.amazonaws:aws-java-sdk-s3:$aws")
+	implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
 }
 
 kotlin {

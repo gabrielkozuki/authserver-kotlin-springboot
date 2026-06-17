@@ -24,10 +24,14 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
+import java.net.URI
 
 @RestController
 @RequestMapping("users")
-class UserController(val service: UserService) {
+class UserController(
+    val service: UserService
+) {
     @GetMapping("/ping")
     fun ping() = mapOf("status" to "ok")
 
@@ -99,4 +103,15 @@ class UserController(val service: UserService) {
     fun login(
         @RequestBody @Valid user: LoginRequest
     ) = service.login(user.email!!, user.password!!)
+
+    @PreAuthorize("permitAll()")
+    @SecurityRequirement(name = "jwt-auth")
+    @PutMapping("/{id}/avatar", consumes = ["multipart/form-data"])
+    fun uplaodAvatar(
+        @PathVariable id: Long,
+        @RequestParam avatar: MultipartFile
+    ) = service.saveAvatar(id, avatar)
+        .let {
+            ResponseEntity.created(URI(it)).build<Void>()
+        }
 }
