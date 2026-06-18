@@ -22,6 +22,7 @@ class User (
 
     var password: String = "",
     var name: String = "",
+    var bio: String = "",
 
     @ManyToMany
     @JoinTable(

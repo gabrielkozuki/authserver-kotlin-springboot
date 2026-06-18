@@ -7,7 +7,11 @@ Projeto desenvolvido na disciplina de Desenvolvimento de Backend (PUC PR). O rep
 ## Vídeo da apresentação
 
 Nome: Gabriel Shiguehiro Kozuki
-Link para o vídeo: https://youtu.be/HAY3nzvSr7k
+Link para o vídeo 1 - Desenvolvimento de Backend: https://youtu.be/HAY3nzvSr7k
+Tema: Estendendo os serviços
+
+Link para o vídeo 2 - Serviços Mobile em Cloud AWS: [link]
+Tema: Avatares avançados
 
 ---
 

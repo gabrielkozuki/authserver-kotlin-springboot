@@ -3,6 +3,7 @@ package br.pucpr.authserver.users
 import br.pucpr.authserver.exceptions.BadRequestException
 import br.pucpr.authserver.exceptions.NotFoundException
 import br.pucpr.authserver.exceptions.UnauthorizedException
+import br.pucpr.authserver.integration.quotes.QuoteClient
 import br.pucpr.authserver.lib.SortDir
 import br.pucpr.authserver.roles.RoleRepository
 import br.pucpr.authserver.security.Jwt
@@ -21,6 +22,7 @@ class UserService(
     val roleRepository: RoleRepository,
     val avatarService: AvatarService,
     val jwt: Jwt,
+    val quoteClient: QuoteClient,
 ) {
     fun findAll(sortDir: SortDir) = when(sortDir) {
         SortDir.ASC -> repository.findAll(Sort.by("name").ascending())
@@ -36,6 +38,9 @@ class UserService(
     fun insert(user: User): User {
         if (repository.findByEmail(user.email) != null) {
             throw BadRequestException("User already exists")
+        }
+        if (user.bio.isEmpty()) {
+            user.bio = quoteClient.randomQuote()?.text ?: ""
         }
 
         return repository.save(user)
@@ -92,7 +97,6 @@ class UserService(
         val user = findById(id)
         user.avatar = avatarService.save(user, avatar)
         repository.save(user)
-
         return avatarService.urlFor(user.avatar)
     }
 

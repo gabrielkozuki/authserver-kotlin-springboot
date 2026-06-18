@@ -16,10 +16,13 @@ data class CreateUserRequest (
 
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@\$!%*#?&])[A-Za-z\\d@\$!%*#?&]{8,}\$")
     val password: String?,
+
+    val bio: String?
 ) {
     fun toUser() = User(
         name = name ?: "",
         email = email ?: "",
         password = password ?: "",
+        bio = bio ?: ""
     )
 }
