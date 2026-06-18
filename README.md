@@ -158,3 +158,12 @@ br.pucpr.authserver/
 ├── projects/          # (novo) Entidade Project e seus endpoints
 └── tasks/             # (novo) Entidade Task e seus endpoints
 ```
+
+## Lambda
+
+- Dentro da pasta lambda, executar "python -m venv .env" para criar um novo ambiente
+- ".env\scripts\activate" ativa o ambiente criado
+- Instalar libs com "pip install -r .\requirements.txt"
+- Rodar testes: "python -m unittest ./thumb_test.py"
+- Empacotar a enviar função para AWS: "pip install --platform manylinux2014_x86_64 --target=package --implementation cp --python-version 3.13 --only-binary=:all: --upgrade pillow"
+- Em seguida, copiar scripts de lambda para pasta /package criada
