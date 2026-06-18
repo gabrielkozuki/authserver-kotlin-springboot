@@ -23,14 +23,14 @@ class AvatarService(
 
             val path = "$ROOT/${user.id}/a_${user.id}.$extension"
             storage.save(user, path, avatar)
-            return path
+            return "${user.id}/xl_a_${user.id}.png"
         } catch (exception: Error) {
             log.warn("Could not save user ${user.id} avatar ${avatar.originalFilename}: ${exception.message}")
             return DEFAULT_AVATAR
         }
     }
 
-    fun urlFor(path: String) = storage.urlFor(path)
+    fun urlFor(path: String) = storage.urlFor("$ROOT/$path")
 
     companion object {
         const val ROOT = "avatars"

@@ -15,13 +15,14 @@ import org.springframework.web.multipart.MultipartFile
 @Component
 class S3Storage: IFileStorage {
     private val s3: AmazonS3 = AmazonS3ClientBuilder.standard()
-        .withRegion(Regions.US_EAST_2)
+        .withRegion(Regions.US_EAST_1)
         .withCredentials(EnvironmentVariableCredentialsProvider())
         .build()
 
     companion object {
+        const val THUMB = "gabrielkozuki-authserver-thumb"
         const val PUBLIC = "gabrielkozuki-authserver-public"
-        const val PREFIX = "https://gabrielkozuki-authserver-public.s3.us-east-2.amazonaws.com"
+        const val PREFIX = "https://gabrielkozuki-authserver-public.s3.us-east-1.amazonaws.com"
     }
 
     override fun save(
@@ -42,7 +43,7 @@ class S3Storage: IFileStorage {
             .build()
 
         transferManager
-            .upload(PUBLIC, path, file.inputStream, meta)
+            .upload(THUMB, path, file.inputStream, meta)
             .waitForUploadResult()
     }
 
